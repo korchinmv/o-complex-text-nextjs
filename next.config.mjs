@@ -3,9 +3,6 @@ const nextConfig = {
   env: {
     BASE_URL: process.env.BASE_URL,
   },
-  experimental: {
-    serverActions: true,
-  },
   reactStrictMode: false,
   images: {
     remotePatterns: [

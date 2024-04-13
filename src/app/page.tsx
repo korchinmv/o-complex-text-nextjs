@@ -76,7 +76,7 @@ export default function Home() {
 
   useEffect(() => {
     showCount();
-  }, [windowSize.width, products]);
+  }, [windowSize.width, products, showCount]);
 
   return (
     <main className='flex flex-col items-center justify-between py-[13px] sm:py-[55px] px-[14px]'>

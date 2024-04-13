@@ -28,6 +28,22 @@ const ProductCard = ({ urlImg, title, price, descr }: ProductCardProps) => {
           <span>{price}₽</span>
         </div>
         <Button text='купить' type='button' label='добавить товар в корзину' />
+
+        <div className='flex justify-between text-[36px] text-[--light-color]'>
+          <button
+            className='w-[68px] h-[68px] rounded-[15px] bg-[--bg-page-color]'
+            // onClick={(event) => incrementItem(event)}
+          >
+            -
+          </button>
+          <input className='w-[128px] p-[3px] text-center rounded-[15px] bg-[--bg-page-color] outline outline-transparent'></input>
+          <button
+            className='w-[68px] h-[68px] rounded-[15px] bg-[--bg-page-color]'
+            // onClick={(event) => decreaseItem(event)}
+          >
+            +
+          </button>
+        </div>
       </article>
     </li>
   );

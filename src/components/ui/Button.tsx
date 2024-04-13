@@ -7,7 +7,7 @@ interface ButtonProps {
 const Button = ({ text, type, label }: ButtonProps) => {
   return (
     <button
-      className='bg-[--bg-page-color] text-[26px] py-[14px] px-[10px] sm:text-[36px] text-[--light-color] rounded-[15px] w-full leading-none'
+      className='bg-[--bg-page-color] h-[68px] text-[26px] py-[14px] px-[10px] sm:text-[36px] text-[--light-color] rounded-[15px] w-full leading-none'
       type={type}
       aria-label={label}
     >

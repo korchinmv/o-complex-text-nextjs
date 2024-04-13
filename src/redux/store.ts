@@ -4,6 +4,7 @@ import { api } from "./api/api";
 export const store = () => {
   return configureStore({
     reducer: {
+      cartReducer,
       [api.reducerPath]: api.reducer,
     },
     devTools: process.env.NODE_ENV !== "production",

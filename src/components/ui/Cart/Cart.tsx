@@ -34,8 +34,13 @@ const Cart = ({ css }: CartProps) => {
           number={number}
           handleInput={handleInput}
           css='mb-[9px] mr-0 sm:mr-[17px] sm:mb-0'
+          name='phone'
         />
-        <Button text={"заказать"} type={"submit"} />
+        <Button
+          text='заказать'
+          type='submit'
+          label={"заказать товар или товары"}
+        />
       </form>
     </div>
   );

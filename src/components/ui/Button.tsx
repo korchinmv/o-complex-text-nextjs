@@ -1,13 +1,15 @@
 interface ButtonProps {
   text: string;
   type: React.ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  label: React.ButtonHTMLAttributes<HTMLButtonElement>["aria-label"];
 }
 
-const Button = ({ text, type }: ButtonProps) => {
+const Button = ({ text, type, label }: ButtonProps) => {
   return (
     <button
-      className='bg-[--bg-page-color] text-[26px] sm:text-[36px] text-[--light-color] rounded-[15px] min-w-[268px] w-full leading-none'
+      className='bg-[--bg-page-color] text-[26px] py-[14px] px-[10px] sm:text-[36px] text-[--light-color] rounded-[15px] w-full leading-none'
       type={type}
+      aria-label={label}
     >
       {text}
     </button>

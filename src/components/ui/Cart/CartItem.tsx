@@ -9,8 +9,8 @@ const CartItem = ({ product }: CartItemProps) => {
     <li className='text-[24px] flex justify-between max-w-[380px] w-full'>
       <h3>{product.title}</h3>
       <div>
-        <span className='mr-[15px]'>{`x${product.totalQty}`}</span>
-        <span>{`${product.price}₽`}</span>
+        <span className='mr-[15px]'>{`x${product.quantity}`}</span>
+        <span>{`${product.price! * product.quantity!}₽`}</span>
       </div>
     </li>
   );

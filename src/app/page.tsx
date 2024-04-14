@@ -9,8 +9,6 @@ import {
   PRODUCTS_LIST_DESKTOP,
   PRODUCTS_LIST_MOBILE,
 } from "../utils/variables";
-import { useAppSelector } from "@/redux/hooks";
-import { cartSelector } from "@/redux/features/cart/cartSelector";
 import Container from "@/components/Container";
 import Title from "@/components/Title";
 import ReviewCard from "@/components/ReviewCard";

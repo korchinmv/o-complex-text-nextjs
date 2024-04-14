@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/redux/hooks";
-import { addProduct } from "@/redux/features/cart/cartSlice";
+import { addProduct, removeItem } from "@/redux/features/cart/cartSlice";
 import { useState } from "react";
 import { Product } from "@/types/Product";
 import Image from "next/image";
@@ -10,29 +10,30 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const [buyed, setBuyed] = useState<boolean>(false);
-  const [inputNumber, setInputNumber] = useState<number>(1);
+  const [inputNumber, setInputNumber] = useState<number>(0);
   const dispatch = useAppDispatch();
 
-  const incrementItem = (event) => {
+  const incrementItem = () => {
     dispatch(
       addProduct({
-        totalQty: inputNumber,
-        totalPrice: inputNumber * product.price,
+        id: product.id,
       })
     );
-    event.stopPropagation();
+    setInputNumber((prev) => prev + 1);
   };
 
-  const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
+  const decreaseItem = () => {
+    dispatch(removeItem({ id: product.id }));
+    setInputNumber((prev) => prev - 1);
+  };
+
+  const handleInputChange = (event: any) => {
     setInputNumber(event.target.value);
   };
 
   const handleAddProductInCart = () => {
     dispatch(addProduct(product));
-    setBuyed(true);
+    setInputNumber(1);
   };
 
   return (
@@ -42,7 +43,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className='rounded-[15px] w-[310px] h-[366px] object-cover object-top self-center'
           width={0}
           height={0}
-          src={product?.image_url}
+          src={product.image_url!}
           unoptimized
           alt={`${product.title} image`}
           priority
@@ -55,11 +56,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <span>цена: </span>
           <span>{product.price}₽</span>
         </div>
-        {buyed ? (
+        {inputNumber !== 0 ? (
           <div className='flex justify-between text-[36px] text-[--light-color]'>
             <button
               className='w-[68px] h-[68px] rounded-[15px] bg-[--bg-page-color]'
-              // onClick={(event) => incrementItem(event)}
+              onClick={decreaseItem}
             >
               -
             </button>
@@ -71,7 +72,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
             <button
               className='w-[68px] h-[68px] rounded-[15px] bg-[--bg-page-color]'
-              onClick={(event) => incrementItem(event)}
+              onClick={incrementItem}
             >
               +
             </button>
@@ -82,6 +83,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             type='button'
             label='добавить товар в корзину'
             handleClick={handleAddProductInCart}
+            btnState={false}
           />
         )}
       </article>

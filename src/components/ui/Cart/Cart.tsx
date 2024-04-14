@@ -1,32 +1,26 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useAppSelector } from "@/redux/hooks";
 import { cartSelector } from "@/redux/features/cart/cartSelector";
 import { Product } from "@/types/Product";
 import CartItem from "./CartItem";
-import NumberInput from "../NumberInput";
-import Button from "../Button";
+import Form from "../Form";
 
 interface CartProps {
   css: string;
 }
 
 const Cart = ({ css }: CartProps) => {
-  const [number, setNumber] = useState<string>("");
-  const { register, handleSubmit, watch } = useForm();
   const productsList = useAppSelector(cartSelector);
   console.log(productsList);
-
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNumber(event.target.value);
-  };
 
   return (
     <div
       className={`bg-[--bg-card-color] rounded-[15px] p-[12px] py-[10px] max-w-[708px] w-full ${css}`}
     >
       <h3 className='text-[36px] text-center sm:text-left mb-[7px] sm:mb-[11px] leading-none'>
-        Добавленные товары
+        {productsList?.cartItems.length > 0
+          ? "Добавленные товары"
+          : "Добавьте товары"}
       </h3>
 
       <ul className='mb-[30px] sm:mb-[20px]'>
@@ -35,19 +29,10 @@ const Cart = ({ css }: CartProps) => {
         })}
       </ul>
 
-      <form className='flex flex-col sm:flex-row' action='#'>
-        <NumberInput
-          number={number}
-          handleInput={handleInput}
-          css='mb-[9px] mr-0 sm:mr-[17px] sm:mb-0'
-          name='phone'
-        />
-        <Button
-          text='заказать'
-          type='submit'
-          label={"заказать товар или товары"}
-        />
-      </form>
+      <Form
+        buttonState={productsList?.cartItems.length > 0 ? false : true}
+        productsList={productsList?.cartItems}
+      />
     </div>
   );
 };

@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useAppSelector } from "@/redux/hooks";
+import { cartSelector } from "@/redux/features/cart/cartSelector";
+import { Product } from "@/types/Product";
 import CartItem from "./CartItem";
 import NumberInput from "../NumberInput";
 import Button from "../Button";
@@ -11,6 +14,8 @@ interface CartProps {
 const Cart = ({ css }: CartProps) => {
   const [number, setNumber] = useState<string>("");
   const { register, handleSubmit, watch } = useForm();
+  const productsList = useAppSelector(cartSelector);
+  console.log(productsList);
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumber(event.target.value);
@@ -25,8 +30,9 @@ const Cart = ({ css }: CartProps) => {
       </h3>
 
       <ul className='mb-[30px] sm:mb-[20px]'>
-        <CartItem />
-        <CartItem />
+        {productsList.cartItems?.map((product: Product) => {
+          return <CartItem key={product.id} product={product} />;
+        })}
       </ul>
 
       <form className='flex flex-col sm:flex-row' action='#'>

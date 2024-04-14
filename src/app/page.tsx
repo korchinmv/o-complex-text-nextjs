@@ -9,6 +9,8 @@ import {
   PRODUCTS_LIST_DESKTOP,
   PRODUCTS_LIST_MOBILE,
 } from "../utils/variables";
+import { useAppSelector } from "@/redux/hooks";
+import { cartSelector } from "@/redux/features/cart/cartSelector";
 import Container from "@/components/Container";
 import Title from "@/components/Title";
 import ReviewCard from "@/components/ReviewCard";
@@ -32,8 +34,6 @@ export default function Home() {
 
   useEffect(() => {
     if (fetching) {
-      console.log("fetching");
-
       fetch(
         `${process.env.BASE_URL}products?page=${currentPage}&page_size=${fetchDataSize}`
       )
@@ -76,7 +76,7 @@ export default function Home() {
 
   useEffect(() => {
     showCount();
-  }, [windowSize.width, products, showCount]);
+  }, [windowSize.width, products]);
 
   return (
     <main className='flex flex-col items-center justify-between py-[13px] sm:py-[55px] px-[14px]'>
@@ -100,17 +100,10 @@ export default function Home() {
             </ul>
 
             <Cart css={"mx-auto mb-[47px]"} />
+
             <ul className='grid grid-cols-1 gap-[18px] sm:gap-[35px] sm:grid-cols-2 md:grid-cols-3 w-full'>
-              {products?.map((product: Product, index) => {
-                return (
-                  <ProductCard
-                    key={uuidv4()}
-                    urlImg={product.image_url}
-                    title={product.title}
-                    price={product.price}
-                    descr={product.description}
-                  />
-                );
+              {products?.map((product: Product) => {
+                return <ProductCard key={uuidv4()} product={product} />;
               })}
             </ul>
             {fetching && (

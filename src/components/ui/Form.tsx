@@ -13,16 +13,21 @@ interface FormProps {
 }
 
 const schema = yup
-  .object()
-  .shape({
-    phone: yup.string().required(),
+  .object({
+    phone: yup
+      .string()
+      .required()
+      .matches(
+        /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
+        "Номер введен не верно"
+      ),
   })
   .required();
 
 const Form = ({ buttonState, productsList }: FormProps) => {
   const {
-    register,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<Input>({
     resolver: yupResolver(schema),
@@ -42,11 +47,14 @@ const Form = ({ buttonState, productsList }: FormProps) => {
         name='phone'
         register={{ ...register("phone") }}
         btnState={buttonState}
+        errorMessage={errors.phone?.message}
+        id='phone'
+        type='tel'
       />
       <Button
         text='заказать'
         type='submit'
-        label={"заказать товар или товары"}
+        label='заказать товар или товары'
         btnState={buttonState}
       />
     </form>
